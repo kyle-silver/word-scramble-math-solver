@@ -25,6 +25,3 @@ for permutation in itertools.permutations(letters):
     if solution := check(permutation):
         print(f"Found! {solution}")
         break
-
-# we   want   no   new   atomic   weapon
-# 20 + 2149 + 48 + 402 + 198765 = 201384

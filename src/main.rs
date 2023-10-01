@@ -21,22 +21,21 @@ impl Permutation {
         self.0[c as usize - 'a' as usize]
     }
 
-    fn word_sum(&self, words: &[&str]) -> u32 {
-        words
-            .iter()
-            .map(|word| {
-                word.chars()
-                    .rev()
-                    .enumerate()
-                    .map(|(i, c)| self.get(c) as u32 * 10u32.pow(i as u32))
-                    .sum::<u32>()
-            })
+    fn word_sum(&self, word: &str) -> u32 {
+        word.chars()
+            .rev()
+            .enumerate()
+            .map(|(i, c)| self.get(c) as u32 * 10u32.pow(i as u32))
             .sum()
     }
 
+    fn phrase_sum(&self, words: &[&str]) -> u32 {
+        words.iter().map(|&word| self.word_sum(word)).sum()
+    }
+
     fn check(&self) -> bool {
-        let lhs = self.word_sum(&["we", "want", "no", "new", "atomic"]);
-        let rhs = self.word_sum(&["weapon"]);
+        let lhs = self.phrase_sum(&["we", "want", "no", "new", "atomic"]);
+        let rhs = self.word_sum("weapon");
         lhs == rhs
     }
 }
